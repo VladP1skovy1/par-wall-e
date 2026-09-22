@@ -1,0 +1,128 @@
+syntax = "proto2";
+
+package robot_messages;
+
+enum RobotDataType
+{
+	ROBOT_DATA_NONE = 0;
+	ROBOT_DATA_ODOMETRY = 1;
+	ROBOT_DATA_BATTERY = 2;
+	ROBOT_DATA_BUMPER = 3;
+	ROBOT_DATA_CHARGER = 4;
+	ROBOT_DATA_DOCKING_SENSOR = 5;
+	ROBOT_DATA_LASER = 6;
+	ROBOT_DATA_LASER_CFG = 7;
+	ROBOT_DATA_MOTOR_CURRENTS = 8;
+	ROBOT_DATA_CLIFF = 9;
+	ROBOT_DATA_NUMBER = 10;
+	// keep this in sync with TRobotDataType in robot/robot_interface.h
+}
+
+message RobotCapabilities
+{
+	message Capability
+	{
+		required RobotDataType dataType = 1;
+		required uint32 count = 2;
+		optional string label = 3;
+	}
+	repeated Capability capabilities = 1;
+}
+
+message Position3D
+{
+	required double x = 1;
+	required double y = 2;
+	required double z = 3;
+}
+
+message MotionControlMsg
+{
+	required uint32 index = 1;
+	required double forwardVelocity = 2;
+	required double angularVelocity = 3;
+}
+
+message RawOdometryMsg
+{
+	required uint32 index = 1;
+	required double left = 2;
+	required double right = 3;
+}
+
+message RawOdometryCfgMsg
+{
+	required uint32 index = 1;
+	required double wheelTrack = 2;
+}
+
+message OdometryMsg
+{
+	required uint32 index = 1;
+	required double x = 2;
+	required double y = 3;
+	required double heading = 4;
+}
+
+message BatteryMsg
+{
+	required uint32 index = 1;
+	required double batteryChargeLevel = 2;
+}
+
+message BumperMsg
+{
+	required uint32 index = 1;
+	required uint32 state = 2;
+}
+
+message ChargerMsg
+{
+	required uint32 index = 1;
+	required uint32 state = 2;
+}
+
+message DockingSensorMsg
+{
+	required uint32 index = 1;
+	repeated uint32 state = 2;
+}
+
+message MotorCurrentMsg
+{
+	required uint32 index = 1;
+	required double left = 2;
+	required double right = 3;
+}
+
+message CliffMsg
+{
+	required uint32 index = 1;
+	required uint32 state = 2;
+}
+
+message LaserScanMsg
+{
+	required uint32 index = 1;
+	repeated double range = 2 [packed=true];
+	repeated double intensity = 3 [packed=true];
+}
+
+message LaserCfgMsg
+{
+	required uint32 index = 1;
+	required double maxRange = 2;
+	required double angularResolution = 3;
+	required double minAngle = 4;
+	required int32 scanSampleCount = 5;
+	required double frequency = 6;
+	required Position3D position = 7;
+}
+
+message ConfigurationRequest
+{
+	required RobotDataType dataType = 1;
+	required uint32 index = 2;
+	optional string robotName = 3;
+}
+

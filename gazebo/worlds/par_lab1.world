@@ -1,0 +1,114 @@
+<sdf version='1.6'>
+  <world name='default'>
+  
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- A ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <model name="wall1">
+      <pose>0 5 0 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>10 0.1 0.4</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>10 0.1 0.4</size>
+            </box>
+          </geometry>
+        </visual>
+      </link>
+    </model>        
+
+    <model name="wall2">
+      <pose>0 -5 0 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>10 0.1 0.4</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>10 0.1 0.4</size>
+            </box>
+          </geometry>
+        </visual>
+      </link>
+    </model>        
+    
+    <model name="wall3">
+      <pose>-5.05 0 0 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 10 0.4</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.1 10 0.4</size>
+            </box>
+          </geometry>
+        </visual>
+      </link>
+    </model>        
+
+    <model name="wall4">
+      <pose>5.05 0 0 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.1 10 0.4</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.1 10 0.4</size>
+            </box>
+          </geometry>
+        </visual>
+      </link>
+    </model>        
+    
+
+     <model name="kobuki">
+      <include>
+            <static>false</static>
+        <uri>model://kobuki_with_laser</uri>
+        <pose> 0 0 1 0 0 0</pose>
+      </include>
+    </model>
+ 
+  
+  
+  </world>
+</sdf>
