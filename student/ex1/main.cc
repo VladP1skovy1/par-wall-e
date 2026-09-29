@@ -19,6 +19,9 @@ enum Sectors{
 };
 
 
+constexpr bool kIsSimulation = false;
+constexpr int kIgnoredLaserCount = 150;
+
 constexpr double kDroneWidth = 0.4;
 
 constexpr double kDroneMaxSpeed = 2.0;
@@ -38,7 +41,11 @@ Sectors getSector(CLaserSensorConfiguration laserConfiguration, int rayIndex, do
 int main(int argc, char **argv) {
     CRobotClientConfiguration cfg;
     cfg.waitForInitialization = true;
-    robot.enableRequestResponseServices();
+    if (kIsSimulation) {
+        robot.enableRequestResponseServices();
+    } else {
+        robot.setAsyncMode();
+    }
     if (!robot.initialize(&cfg)) {
         std::cerr << "Failed to initialize robot!" << std::endl;
         return 1;
@@ -88,7 +95,7 @@ void avoidObstacles(CLaserSensorConfiguration laserConfiguration, CLaserScan& sc
     double minFrontDist = INFINITY;
     double minLeftDist = INFINITY;
 
-    for (int i = 0; i < scan.range.size(); i++){
+    for (int i = kIgnoredLaserCount; i < scan.range.size() - kIgnoredLaserCount; i++){
         double rayDistance = scan.range[i];
         if (rayDistance <= kInactiveThreshold) continue;
 
