@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+
+message VelocityMsg {
+  double forward = 1;
+  double angular = 2;
+}
+
+message PoseMsg {
+  double x = 1;
+  double y = 2;
+  double phi = 3;
+}
+
+
+message LaserSettingsMsg
+{
+  double angle_min           = 1;
+  double angle_max           = 2;
+  double angle_step          = 3;
+  double range_min           = 4;
+  double range_max           = 5;
+  uint32 count               = 6;
+}
+
+message LaserMsg
+{
+  repeated double ranges              = 1;
+}

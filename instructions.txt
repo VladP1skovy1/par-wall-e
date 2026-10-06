@@ -1,0 +1,13 @@
+Otevřít terminál v adresáři ex1
+. ./setup.sh 
+cd build/
+cmake ..
+make
+cd ..
+gazebo gazebo/worlds/par_lab1.world 
+
+Otevřít nový terminál
+cd student/ex1/build
+cmake ..
+make
+./ex1
