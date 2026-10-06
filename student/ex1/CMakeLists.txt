@@ -1,5 +1,6 @@
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
-
+#cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.10)
+project(ParWallE)
 # message("CMAKE_BINARY_DIR: ${IGNITION-TRANSPORT_HEADERS}")
 # message("CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
 
