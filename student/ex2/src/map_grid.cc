@@ -29,7 +29,26 @@ CMapGrid::CMapGrid(int width, int height, double cellSize)
   }
 };
 
-CMapGrid::CMapGrid(std::string name) {
+CMapGrid::CMapGrid(const CMapGrid &other)
+    : height(other.height), width(other.width), cellSize(other.cellSize) {
+  data = new double[height * width];
+  std::copy(other.data, other.data + (width * height), data);
+}
+
+CMapGrid &CMapGrid::operator=(const CMapGrid &other) {
+  if (this != &other) {
+    double *newData = new double[other.height * other.width];
+    std::copy(other.data, other.data + (other.width * other.height), newData);
+    delete[] data;
+    data = newData;
+    height = other.height;
+    width = other.width;
+    cellSize = other.cellSize;
+  }
+  return *this;
+}
+
+CMapGrid::CMapGrid(std::string name) : height(0), width(0), cellSize(1.0), data(nullptr) {
   std::ifstream infile(name.c_str(), std::ios_base::in);
   std::string line;
   int i = 0;
@@ -59,7 +78,7 @@ CMapGrid::CMapGrid(std::string name) {
   INFO("Map loaded. Width " << width << " height " << height);
 }
 
-CMapGrid::~CMapGrid() { delete data; }
+CMapGrid::~CMapGrid() { delete[] data; }
 
 double CMapGrid::getCell(int x, int y) {
   assert_argument(x >= 0 && x < width, "getCell: X out of range");

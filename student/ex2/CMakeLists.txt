@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.5)
 project(planner)
 set(CMAKE_BUILD_TYPE RELWITHDEBINFO)
 
@@ -6,7 +6,7 @@ set(CMAKE_BUILD_TYPE RELWITHDEBINFO)
 add_compile_options(-std=c++11)
 
 find_package(PkgConfig)
-pkg_check_modules(GTKMM gtkmm-3.0) 
+pkg_check_modules(GTKMM REQUIRED IMPORTED_TARGET gtkmm-3.0)
 
 link_directories(
     ${GTKMM_LIBRARY_DIRS}  

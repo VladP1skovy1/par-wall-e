@@ -13,7 +13,8 @@
 
 #include "map_grid.h"
 
-
+constexpr int STRAIGHT_COST = 10;
+constexpr int DIAGONAL_COST = 14;
 /**
     Planner class is essential class for users. Here the Dijkstra's algorithm
     shall be implemented with all the necessary features to achieve final path
@@ -21,12 +22,13 @@
     by user.
 */
 
-namespace imr {
+using RobotPath = std::vector<std::pair<int, int> >;
 
-class CPlanner {
+namespace imr {
+    class CPlanner {
     private:
-        CMapGrid *map;              // map over which planner makes the plans
-        void inflateMap(void);
+        CMapGrid *map; // map over which planner makes the plans
+        void inflateMap(int radius);
 
         /**
             Dijkstra's algorithm. Plans over inflated map, therefore it
@@ -34,15 +36,14 @@ class CPlanner {
 
             @return true if path exists, false otherwise
         */
-        bool dijkstra(int x, int y);
+        std::vector<std::pair<int, int> > dijkstra(std::pair<int, int> start, std::pair<int, int> finish);
 
         /**
             Takes the plan produced by Dijkstra and makes smooth path.
             Smooth path is stored back to plan, goal is first element,
             start is the last one
         */
-        void smooth_path(void);
-
+        std::vector<std::pair<int, int> > smooth_path(const std::vector<std::pair<int, int> > &path);
 
     public:
         /**
@@ -56,7 +57,7 @@ class CPlanner {
             Map setter. Assign new map to private map and
             create new infmap to fit the map's size
         */
-        void setMap(CMapGrid &map);
+        void setMap(CMapGrid &new_map);
 
 
         /**
@@ -73,7 +74,8 @@ class CPlanner {
             @return true if path was found, false otherwise (goal position is not
                     reachable)
         */
-        bool plan(int x0, int y0, int x1, int y1);
+        std::pair<std::vector<std::pair<int, int>>, std::vector<std::pair<int, int>>> plan(
+            int x0, int y0, int x1, int y1, int robot_radius);
 
         /**
             Bresenham algorithm for drawing a straight line. Output of the method is
@@ -94,6 +96,8 @@ class CPlanner {
         */
         bool bresenham(int x0, int y0, int x1, int y1);
 
-};}
+        CMapGrid &getMap() { return *map; }
+    };
+}
 
 #endif
