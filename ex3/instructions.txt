@@ -1,0 +1,15 @@
+Otevřít terminál v adresáři ex3
+. ./setup.sh 
+cd build/
+cmake ..
+make
+cd ..
+gazebo gazebo/worlds/par_lab3.xml 
+
+Do adresáře student/ex3/src zkopírujte soubor planner.cc z ex2.
+
+Otevřít nový terminál
+cd student/ex3/build
+cmake ..
+make
+./ex3

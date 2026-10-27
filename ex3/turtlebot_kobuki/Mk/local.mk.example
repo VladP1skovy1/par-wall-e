@@ -1,0 +1,5 @@
+EIGEN_INCLUDE_DIR=/usr/local/include/eigen3
+SOPHUS_INCLUDE_DIR=/usr/local/include
+
+#EIGEN_INCLUDE_DIR+=-I/usr/include/eigen3
+#SOPHUS_INCLUDE_DIR+=-I/opt/ros/melodic/include
